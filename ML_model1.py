@@ -27,19 +27,20 @@ class lr_model():
 
     def predict(self, text_to_predict):
         #Loads in the existing model and predicts
-        with open(self.pipeline_filename, 'r') as pipeline:
-            #This returns the highest probability emotion as a list of one element
-            # eg. ['anger']
-            prediction = pipeline.predict([text_to_predict])
-            prediction = prediction[0] #remove the list
+        pipeline = joblib.load(self.pipeline_filename)
+        
+        #This returns the highest probability emotion as a list of one element
+        # eg. ['anger']
+        prediction = pipeline.predict([text_to_predict])
+        prediction = prediction[0] #remove the list
 
-            #This will give the probability of all emotions
-            #They correspond to each other
-            emotions = pipeline.classes_
-            probability = pipeline.predict_proba([text_to_predict])[0] #Its a nested list for no reason again
+        #This will give the probability of all emotions
+        #They correspond to each other
+        emotions = pipeline.classes_
+        probability = pipeline.predict_proba([text_to_predict])[0] #Its a nested list for no reason again
 
-            #Pair them together
-            emotions_probabilities = list(zip(emotions, probability))
+        #Pair them together
+        emotions_probabilities = list(zip(emotions, probability))
 
         #Return both, up to you how you want to use them
         return (prediction, emotions_probabilities)
