@@ -2,12 +2,9 @@ from emotion_classifier import lr_model
 
 # Added the print statements because the loading takes awhile
 print("Loading model...")
-lr_model1 = lr_model('emotion_classifier_pipeline_lr.pkl')
+lr_model1 = lr_model('emotion_classifier_pipeline_lr_22MARCH2023.pkl')
 print("Done!")
 print()
-
-
-# Ideally there will be an intro explaining what's going on plus a disclaimer
 
 def q1():
     wecannot = "Hey, it seems like you're dealing with something that is beyond our scope of healing, we suggest that " \
@@ -18,13 +15,6 @@ def q1():
     else:
         most_likely_emotion, probability_distribution = lr_model1.predict(ans1)
         return most_likely_emotion, probability_distribution
-
-
-question1 = q1()
-mle = question1[0]
-pd = question1[1]
-
-
 def q2():
     statement1 = 'It seems like you are feeling a lot of ' + mle + ' ,is that right? (y/n):'
     ans2 = input(statement1)
@@ -33,11 +23,7 @@ def q2():
         correct_emotion = input("Please tell us what emotion you're feeling right now:")
     else:
         pass
-    return correct_emotion
-
-
-ce = q2()
-
+    return
 
 def q3():
     statement2 = "Can you rate the amount of  " + ce + "  you are feeling on a scale of 10?:"
@@ -45,40 +31,22 @@ def q3():
     emotion_rating = ans3 / 10
     return emotion_rating
 
-
-er = q3()
-
-
-# retraining function over here ma'am
-
 def q5():
     statement3 = "What is the main thought that is making you feel this much " + ce + "?:"
     ans4 = input(statement3)
     return ans4
 
-
-negative_thought = q5()
-
-
 def q6():
     statement4 = "What is the evidence supporting the idea that " + negative_thought + " is true?:"  # I think we can
-    # have a bit more instruction on the HTML side on how to answer each of these questions properly 
+    # have a bit more instruction on the HTML side on how to answer each of these questions properly
     ans5 = input(statement4)
     return ans5
 
-
-evidence_for = q6()
-
-
 def q7():
-    statement5 = "What is the evidence going against the idea that " + negative_thought + " is true?:"  # again will 
-    # req more detail 
+    statement5 = "What is the evidence going against the idea that " + negative_thought + " is true?:"  # again will
+    # req more detail
     ans6 = input(statement5)
     return ans6
-
-
-evidence_against1 = q7()
-
 
 def q8():
     statement6 = "Now, it is important to argue against the reasons that you feel " + negative_thought + " is true."
@@ -86,10 +54,6 @@ def q8():
     statement8 = statement6 + evidence_for + statement7
     ans7 = input(statement8)
     return ans7
-
-
-evidence_against2 = q8()
-
 
 def q9():
     statement9 = "Great! Now that we have considered all possible arguments, let's re-frame your negative thought, " + negative_thought + ", into a more neutral or positive thought"
@@ -104,10 +68,6 @@ def q9():
         print("Great, now we can move on to the last step")
     return ans8
 
-
-more_positive_statement = q9()
-
-
 def q10():
     statement11 = "and now finally, check in with your emotions, and tell us how much " + ce + "you are feeling right " \
                                                                                                "now, on a scale of 1 " \
@@ -116,27 +76,34 @@ def q10():
     number = ans10 / 10
     return number
 
-
-final_emotion_rating = q10()
-
-
 def q11():
     percentage = (final_emotion_rating / (final_emotion_rating + er)) * 100
-    
+
     statement12 = "you're feeling " + str(percentage) + "better!"
     print(statement12)
     return percentage
 
+class User(object):
 
-final_percentage = q11()
-
-q1()
-q2()
-q3()
-q5()
-q6()
-q7()
-q8()
-q9()
-q10()
-q11()
+       mle = ""
+       ce = ""
+       er = 0.0
+       negative_thought = ""
+       evidence_for =  ""
+       evidence_against1 = ""
+       evidence_against2 = ""
+       more_positive_statement = ""
+       final_emotion_rating = 0.0
+       final_percentage = 0.0
+    
+question1 = q1()
+user.mle = question1[0]
+user.ce = q2()
+user.er = q3()
+user.negative_thought = q5()
+user.evidence_for = q6()
+user.evidence_against1 = q7()
+user.evedence_against2 = q8()
+user.more_positive_statement = q9()
+user.final_emotion_rating = q10()
+user.final_percentage = q11()
